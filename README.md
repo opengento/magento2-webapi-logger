@@ -20,8 +20,8 @@ This module allows you to analyze all the webapi rest done call toward your Mage
 
 ## Fork
 
-This is a forked version from the following repository: .
-It also contains changes from the following fork: .
+This is a forked version from the following repository: https://github.com/ghostunicorns/module-webapi-logs.  
+It also contains changes from the following fork: https://github.com/magentix/module-webapi-logs.
 
 As the original repository does not seems to be maintained anymore, we offer an improved and optimized version here.
 
