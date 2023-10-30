@@ -1,52 +1,36 @@
 <?php
-/*
- * Copyright © Ghost Unicorns snc. All rights reserved.
- * See LICENSE for license details.
+/**
+ * Copyright © OpenGento, All rights reserved.
+ * See LICENSE bundled with this library for license details.
  */
 
 declare(strict_types=1);
 
-namespace GhostUnicorns\WebapiLogs\Controller\Adminhtml\Reports;
+namespace Opengento\WebapiLogger\Controller\Adminhtml\Reports;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
-use Magento\Framework\App\Action\HttpGetActionInterface as HttpGetActionInterface;
-use Magento\Framework\Controller\ResultInterface;
+use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 
 class Index extends Action implements HttpGetActionInterface
 {
-    /**
-     * Authorization level of a basic admin session
-     */
-    const ADMIN_RESOURCE = 'GhostUnicorns_WebapiLogs::reports_webapilogs';
+    public const ADMIN_RESOURCE = 'Opengento_WebapiLogger::reports_webapilogs';
 
-    /**
-     * @var bool|PageFactory
-     */
-    protected $resultPageFactory = false;
-
-    /**
-     * @param Context $context
-     * @param PageFactory $resultPageFactory
-     */
     public function __construct(
         Context $context,
-        PageFactory $resultPageFactory
+        private PageFactory $resultPageFactory
     ) {
         parent::__construct($context);
-        $this->resultPageFactory = $resultPageFactory;
     }
 
-    /**
-     * @return Page|ResultInterface
-     */
-    public function execute()
+    public function execute(): Page
     {
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->setActiveMenu('GhostUnicorns_WebapiLogs::reports');
+        $resultPage->setActiveMenu('Opengento_WebapiLogger::reports');
         $resultPage->getConfig()->getTitle()->prepend(__('Webapi REST api logs'));
+
         return $resultPage;
     }
 }

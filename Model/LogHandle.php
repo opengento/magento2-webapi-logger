@@ -1,75 +1,29 @@
 <?php
-/*
- * Copyright © Ghost Unicorns snc. All rights reserved.
- * See LICENSE for license details.
+/**
+ * Copyright © OpenGento, All rights reserved.
+ * See LICENSE bundled with this library for license details.
  */
 
 declare(strict_types=1);
 
-namespace GhostUnicorns\WebapiLogs\Model;
+namespace Opengento\WebapiLogger\Model;
 
 use Exception;
-use GhostUnicorns\WebapiLogs\Model\Log\Logger;
-use GhostUnicorns\WebapiLogs\Model\ResourceModel\LogResourceModel;
+use Opengento\WebapiLogger\Model\ResourceModel\LogResourceModel;
+use Psr\Log\LoggerInterface;
 
 class LogHandle
 {
-    private $lastLog;
+    private ?Log $lastLog = null;
 
-    /**
-     * @var LogFactory
-     */
-    private $logFactory;
-
-    /**
-     * @var LogResourceModel
-     */
-    private $logResourceModel;
-
-    /**
-     * @var Logger
-     */
-    private $logger;
-
-    /**
-     * @var Config
-     */
-    private $config;
-
-    /**
-     * @var SecretParser
-     */
-    private $secretParser;
-
-    /**
-     * @param LogFactory $logFactory
-     * @param LogResourceModel $logResourceModel
-     * @param SecretParser $secretParser
-     * @param Config $config
-     * @param Logger $logger
-     */
     public function __construct(
-        LogFactory $logFactory,
-        LogResourceModel $logResourceModel,
-        SecretParser $secretParser,
-        Config $config,
-        Logger $logger
-    ) {
-        $this->logFactory = $logFactory;
-        $this->logResourceModel = $logResourceModel;
-        $this->config = $config;
-        $this->logger = $logger;
-        $this->secretParser = $secretParser;
-    }
+        private LogFactory $logFactory,
+        private LogResourceModel $logResourceModel,
+        private SecretParser $secretParser,
+        private Config $config,
+        private LoggerInterface $logger
+    ) {}
 
-    /**
-     * @param string $requestMethod
-     * @param string $requestorIp
-     * @param string $requestPath
-     * @param string $requestHeaders
-     * @param string $requestBody
-     * @param string $requestDateTime
-     */
     public function before(
         string $requestMethod,
         string $requestorIp,
@@ -81,7 +35,7 @@ class LogHandle
         try {
             if ($this->config->isSecretMode()) {
                 $requestorIp = $this->secretParser->parseIp();
-                $requestHeaders = $this->secretParser->parseHeades($requestHeaders);
+                $requestHeaders = $this->secretParser->parseHeaders($requestHeaders);
                 $requestBody = $this->secretParser->parseBody($requestBody);
             }
 
@@ -101,14 +55,9 @@ class LogHandle
         }
     }
 
-    /**
-     * @param string $responseCode
-     * @param string $resposeBody
-     * @param string $responseDateTime
-     */
     public function after(
         string $responseCode,
-        string $resposeBody,
+        string $responseBody,
         string $responseDateTime
     ) {
         if (!$this->lastLog) {
@@ -117,10 +66,10 @@ class LogHandle
 
         try {
             if ($this->config->isSecretMode()) {
-                $resposeBody = $this->secretParser->parseBody($resposeBody);
+                $responseBody = $this->secretParser->parseBody($responseBody);
             }
 
-            $this->lastLog->setResponseBody($resposeBody);
+            $this->lastLog->setResponseBody($responseBody);
             $this->lastLog->setResponseCode($responseCode);
             $this->lastLog->setResponseDatetime($responseDateTime);
             if ($responseCode === '200') {

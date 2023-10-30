@@ -1,73 +1,67 @@
 <?php
-/*
- * Copyright © Ghost Unicorns snc. All rights reserved.
- * See LICENSE for license details.
- */
-
-// @codingStandardsIgnoreFile
 /**
- * @var $block Template
+ * Copyright © OpenGento, All rights reserved.
+ * See LICENSE bundled with this library for license details.
  */
 
-/** @var Detail $viewModel */
+declare(strict_types=1);
 
-use GhostUnicorns\WebapiLogs\ViewModel\Detail;
-use Magento\Framework\View\Element\Template;
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Opengento\WebapiLogger\ViewModel\Detail $viewModel */
 
-$viewModel = $block->getViewModel();
-
+$viewModel = $block->getData('viewModel');
 $log = $viewModel->getLog();
 ?>
-
-<h1>Log id: <?= $log->getData('log_id') ?></h1>
+<h1><?= $escaper->escapeHtml(__('Log id: %1', $log->getData('log_id'))) ?></h1>
 <br/>
-<h1>Request</h1>
-<p><b>requestor_ip:</b></p>
-<p><?= $log->getData('requestor_ip') ?></p>
+<h1><?= $escaper->escapeHtml(__('Request')) ?></h1>
+<p><b><?= $escaper->escapeHtml(__('requestor_ip:')) ?></b></p>
+<p><?= $escaper->escapeHtml($log->getData('requestor_ip')) ?></p>
 <br/>
-<p><b>request_url:</b></p>
-<p><?= $log->getData('request_url') ?></p>
+<p><b><?= $escaper->escapeHtml(__('request_url:')) ?></b></p>
+<p><?= $escaper->escapeHtml($log->getData('request_url')) ?></p>
 <br/>
-<p><b>request_method:</b></p>
-<p><?= $log->getData('request_method') ?></p>
+<p><b><?= $escaper->escapeHtml(__('request_method:')) ?></b></p>
+<p><?= $escaper->escapeHtml($log->getData('request_method')) ?></p>
 <br/>
 <?php if (preg_match('/^<\?xml/', $log->getData('request_body'))): ?>
-    <p><b>request_body:</b></p>
-    <pre style="border:1px solid #CCC;height:300px;overflow-y:auto;padding:10px;font-size:12px"><?= htmlentities($log->getData('request_body')) ?></pre>
+    <p><b><?= $escaper->escapeHtml(__('request_body:')) ?></b></p>
+    <pre style="border:1px solid #CCC;height:300px;overflow-y:auto;padding:10px;font-size:12px"><?= $escaper->escapeHtml($log->getData('request_body')) ?></pre>
 <?php else: ?>
-    <p><b>request_body:</b> <button class="js_beauty_json">Prettify JSON</button></p>
-    <p><?= $log->getData('request_body') ?></p>
+    <p><b><?= $escaper->escapeHtml(__('request_body:')) ?></b> <button class="js_beauty_json"><?= $escaper->escapeHtml(__('Prettify JSON')) ?></button></p>
+    <p><?= $escaper->escapeHtml($log->getData('request_body')) ?></p>
 <?php endif; ?>
 <br/>
-<p><b>request_headers:</b></p>
-<p><?= $log->getData('request_headers') ?></p>
+<p><b><?= $escaper->escapeHtml(__('request_headers:')) ?></b></p>
+<p><?= $escaper->escapeHtml($log->getData('request_headers')) ?></p>
 <br/>
-<h1>Response</h1>
-<p><b>response_code:</b></p>
-<p><?= $log->getData('response_code') ?></p>
+<h1><?= $escaper->escapeHtml(__('Response')) ?></h1>
+<p><b><?= $escaper->escapeHtml(__('response_code:')) ?></b></p>
+<p><?= $escaper->escapeHtml($log->getData('response_code')) ?></p>
 <br/>
 <?php if (preg_match('/^<\?xml/', $log->getData('response_body'))): ?>
-    <p><b>response_body:</b></p>
+    <p><b><?= $escaper->escapeHtml(__('response_body:')) ?></b></p>
     <pre style="border:1px solid #CCC;height:300px;overflow-y:auto;padding:10px;font-size:12px"><?= $log->getData('response_body') ?></pre>
 <?php else: ?>
-    <p><b>response_body:</b> <button class="js_beauty_json">Prettify JSON</button></p>
-    <p><?= $log->getData('response_body') ?></p>
+    <p><b><?= $escaper->escapeHtml(__('response_body:')) ?></b> <button class="js_beauty_json">Prettify JSON')) ?></button></p>
+    <p><?= $escaper->escapeHtml($log->getData('response_body')) ?></p>
 <?php endif; ?>
 <br/>
-<p><b>request_datetime:</b></p>
-<p><?= $log->getData('request_datetime') ?></p>
+<p><b><?= $escaper->escapeHtml(__('request_datetime:')) ?></b></p>
+<p><?= $escaper->escapeHtml($log->getData('request_datetime')) ?></p>
 <br/>
-<p><b>response_datetime:</b></p>
-<p><?= $log->getData('response_datetime') ?></p>
+<p><b><?= $escaper->escapeHtml(__('response_datetime:')) ?></b></p>
+<p><?= $escaper->escapeHtml($log->getData('response_datetime')) ?></p>
 <br/>
-<p><b>created_at:</b></p>
-<p><?= $log->getData('created_at') ?></p>
+<p><b><?= $escaper->escapeHtml(__('created_at:')) ?></b></p>
+<p><?= $escaper->escapeHtml($log->getData('created_at')) ?></p>
 <br/>
 
 <script>
     require([
         'jquery',
-        'GhostUnicorns_WebapiLogs/js/js-beautify/beautify.min'
+        'Opengento_WebapiLogger/js/js-beautify/beautify.min'
     ], function (
         $,
         beautify
@@ -75,9 +69,9 @@ $log = $viewModel->getLog();
         'use strict';
 
         $('.js_beauty_json').click(function (e) {
-            let $button = $(e.target);
-            let $target = $button.parent().next();
-            let value = $target.text();
+            let $button = $(e.target),
+                $target = $button.parent().next(),
+                value = $target.text();
 
             value = beautify.js_beautify(value, {
                 "indent_size": 4,

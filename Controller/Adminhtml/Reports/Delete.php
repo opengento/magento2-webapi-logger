@@ -1,73 +1,39 @@
 <?php
-/*
- * Copyright © Ghost Unicorns snc. All rights reserved.
- * See LICENSE for license details.
+/**
+ * Copyright © OpenGento, All rights reserved.
+ * See LICENSE bundled with this library for license details.
  */
 
 declare(strict_types=1);
 
-namespace GhostUnicorns\WebapiLogs\Controller\Adminhtml\Reports;
+namespace Opengento\WebapiLogger\Controller\Adminhtml\Reports;
 
 use Exception;
-use GhostUnicorns\WebapiLogs\Model\Log\Logger;
-use GhostUnicorns\WebapiLogs\Model\Clean;
+use Magento\Framework\Controller\Result\Redirect;
+use Opengento\WebapiLogger\Model\Clean;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
-use Magento\Framework\App\Action\HttpGetActionInterface as HttpGetActionInterface;
-use Magento\Framework\View\Result\PageFactory;
+use Magento\Framework\App\Action\HttpGetActionInterface;
 
 class Delete extends Action implements HttpGetActionInterface
 {
-    /**
-     * Authorization level of a basic admin session
-     */
-    const ADMIN_RESOURCE = 'GhostUnicorns_WebapiLogs::reports_webapilogs';
+    public const ADMIN_RESOURCE = 'Opengento_WebapiLogger::reports_webapilogs';
 
-    /**
-     * @var PageFactory
-     */
-    protected $resultPageFactory;
-
-    /**
-     * @var Clean
-     */
-    private $clean;
-
-    /**
-     * @var Logger
-     */
-    private $logger;
-
-    /**
-     * @param Context $context
-     * @param PageFactory $resultPageFactory
-     * @param LogCollectionFactory $logCollectionFactory
-     * @param Logger $logger
-     */
     public function __construct(
         Context $context,
-        PageFactory $resultPageFactory,
-        Clean $clean,
-        Logger $logger
+        private Clean $clean
     ) {
         parent::__construct($context);
-        $this->resultPageFactory = $resultPageFactory;
-        $this->clean = $clean;
-        $this->logger = $logger;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function execute()
+    public function execute(): Redirect
     {
         try {
             $this->clean->cleanAll();
-        } catch (Exception $exception) {
-            $this->logger->error(__('Cant delete webapi log because of error: %1', $exception->getMessage()));
+        } catch (Exception $e) {
+            $this->messageManager->addExceptionMessage($e);
         }
 
-        $resultRedirect = $this->resultRedirectFactory->create();
-        return $resultRedirect->setPath('*/*/index', ['_current' => true]);
+        return $this->resultRedirectFactory->create()->setPath('*/*/index', ['_current' => true]);
     }
 }

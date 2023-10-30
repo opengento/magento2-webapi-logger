@@ -1,10 +1,10 @@
 <!--
-  ~ Copyright © Ghost Unicorns snc. All rights reserved.
-  ~ See LICENSE for license details.
-  -->
-
-<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+/**
+ * Copyright © OpenGento, All rights reserved.
+ * See LICENSE bundled with this library for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="buttons" xsi:type="array">
             <item name="primary" xsi:type="array">
@@ -15,20 +15,20 @@
         </item>
         <item name="js_config" xsi:type="array">
             <item name="provider" xsi:type="string">
-                webapi_logs_reports_index_listing.ghostunicorns_webapi_logs_entity_data_source
+                webapi_logs_reports_index_listing.opengento_webapi_logs_entity_data_source
             </item>
             <item name="deps" xsi:type="string">
-                webapi_logs_reports_index_listing.ghostunicorns_webapi_logs_entity_data_source
+                webapi_logs_reports_index_listing.opengento_webapi_logs_entity_data_source
             </item>
         </item>
         <item name="spinner" xsi:type="string">spinner_columns</item>
     </argument>
-    <dataSource name="ghostunicorns_webapi_logs_entity_data_source">
+    <dataSource name="opengento_webapi_logs_entity_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
             <argument name="class" xsi:type="string">
-                \GhostUnicorns\WebapiLogs\Ui\DataProvider\LogListingDataProvider
+                \Opengento\WebapiLogger\Ui\DataProvider\LogListingDataProvider
             </argument>
-            <argument name="name" xsi:type="string">ghostunicorns_webapi_logs_entity_data_source</argument>
+            <argument name="name" xsi:type="string">opengento_webapi_logs_entity_data_source</argument>
             <argument name="primaryFieldName" xsi:type="string">log_id</argument>
             <argument name="requestFieldName" xsi:type="string">log_id</argument>
             <argument name="data" xsi:type="array">
@@ -130,12 +130,12 @@
         </column>
         <column name="response_code">
             <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">GhostUnicorns\WebapiLogs\Model\Config\Source\Code</item>
+                <item name="options" xsi:type="object">Opengento\WebapiLogger\Model\Config\Source\Code</item>
                 <item name="config" xsi:type="array">
                     <item name="resizeDefaultWidth" xsi:type="string">50</item>
                     <item name="filter" xsi:type="string">select</item>
                     <item name="label" xsi:type="string" translate="true">Response Code</item>
-                    <item name="component" xsi:type="string">GhostUnicorns_WebapiLogs/js/grid/columns/select</item>
+                    <item name="component" xsi:type="string">Opengento_WebapiLogger/js/grid/columns/select</item>
                     <item name="dataType" xsi:type="string">select</item>
                     <item name="editor" xsi:type="string">select</item>
                     <item name="source" xsi:type="string">response_code</item>
@@ -143,7 +143,7 @@
                 </item>
             </argument>
         </column>
-        <column name="response_body" class="GhostUnicorns\WebapiLogs\Ui\Component\Listing\Column\ResponseBody">
+        <column name="response_body" class="Opengento\WebapiLogger\Ui\Component\Listing\Column\ResponseBody">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
@@ -155,7 +155,7 @@
         </column>
         <column name="request_method">
             <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">GhostUnicorns\WebapiLogs\Model\Config\Source\Methods</item>
+                <item name="options" xsi:type="object">Opengento\WebapiLogger\Model\Config\Source\Methods</item>
                 <item name="config" xsi:type="array">
                     <item name="resizeDefaultWidth" xsi:type="string">50</item>
                     <item name="filter" xsi:type="string">select</item>
@@ -181,7 +181,7 @@
         </column>
         <column name="requestor_ip">
             <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">GhostUnicorns\WebapiLogs\Model\Config\Source\RequestorIp</item>
+                <item name="options" xsi:type="object">Opengento\WebapiLogger\Model\Config\Source\RequestorIp</item>
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">select</item>
                     <item name="label" xsi:type="string" translate="true">Requestor IP</item>
@@ -194,8 +194,7 @@
                 </item>
             </argument>
         </column>
-        <column name="created_at" class="GhostUnicorns\WebapiLogs\Ui\Component\Listing\Column\Datetime"
-                component="Magento_Ui/js/grid/columns/date">
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
             <settings>
                 <filter>dateRange</filter>
                 <dataType>date</dataType>
@@ -205,9 +204,8 @@
                 <label translate="true">Created At</label>
             </settings>
         </column>
-
         <!-- action columns edit and delete -->
-        <actionsColumn name="actions" class="GhostUnicorns\WebapiLogs\Ui\Component\Listing\Column\RowAction">
+        <actionsColumn name="actions" class="Opengento\WebapiLogger\Ui\Component\Listing\Column\RowAction">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="resizeDefaultWidth" xsi:type="string">60</item>

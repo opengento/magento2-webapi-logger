@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © OpenGento, All rights reserved.
+ * See LICENSE bundled with this library for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Webapi\Controller\Rest">
+        <plugin name="Opengento_WebapiLogger::FrontControllerDispatchBefore" type="Opengento\WebapiLogger\Plugin\FrontControllerDispatchBefore" sortOrder="1"/>
+        <plugin name="Opengento_WebapiLogger::FrontControllerDispatchAfter" type="Opengento\WebapiLogger\Plugin\FrontControllerDispatch" sortOrder="9999"/>
+    </type>
+</config>

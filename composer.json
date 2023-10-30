@@ -1,11 +1,36 @@
 {
-    "name": "ghostunicorns/module-webapi-logs",
-    "description": "Magento Webapi Log Details accessible via backend",
-    "type": "magento2-module",
+    "name": "opengento/module-webapi-logger",
+    "description": "This module allows you to analyze all the webapi rest done call toward your Magento.",
+    "keywords": [
+        "php",
+        "magento",
+        "magento2",
+        "module",
+        "extension",
+        "free",
+        "webapi",
+        "logger",
+        "log"
+    ],
     "require": {
+        "php": "^8.0",
+        "psr/log": "*",
         "magento/framework": "*",
         "magento/module-webapi": "*"
     },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
+        "magento/magento-coding-standard": "^5",
+        "magento/marketplace-eqp": "^4.0"
+    },
+    "suggest": {
+        "opengento/logger": "This module will sets a new Gelf logger handler for Magento2."
+    },
+    "type": "magento2-module",
+    "license": [
+        "MIT"
+    ],
+    "homepage": "https://github.com/opengento/magento2-module",
     "authors": [
         {
             "name": "Danilo Argentiero",
@@ -18,17 +43,36 @@
             "email": "riccardo.ugolini@gmail.com",
             "homepage": "https://www.linkedin.com/in/riccardougolini/",
             "role": "Software Architect"
+        },
+        {
+            "name": "Matthieu Vion",
+            "email": "mvion@magentix.fr",
+            "homepage": "https://www.magentix.fr",
+            "role": "Contributor"
+        },
+        {
+            "name": "Opengento Team",
+            "email": "opengento@gmail.com",
+            "homepage": "https://opengento.fr/",
+            "role": "lead"
+        },
+        {
+            "name": "Thomas Klein",
+            "email": "thomaskein876@gmail.com",
+            "homepage": "https://www.linkedin.com/in/thomas-klein/",
+            "role": "maintainer"
         }
     ],
-    "license": [
-        "MIT"
-    ],
+    "support": {
+        "source": "https://github.com/opengento/magento2-webapi-logger",
+        "issues": "https://github.com/opengento/magento2-webapi-logger/issues"
+    },
     "autoload": {
         "files": [
             "registration.php"
         ],
         "psr-4": {
-            "GhostUnicorns\\WebapiLogs\\": ""
+            "Opengento\\WebapiLogger\\": ""
         }
     }
 }

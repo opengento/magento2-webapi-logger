@@ -1,6 +1,6 @@
-/*
- * Copyright © Ghost Unicorns snc. All rights reserved.
- * See LICENSE for license details.
+/**
+ * Copyright © OpenGento, All rights reserved.
+ * See LICENSE bundled with this library for license details.
  */
 
 define([
@@ -12,17 +12,19 @@ define([
 
     return Column.extend({
         defaults: {
-            bodyTmpl: 'GhostUnicorns_WebapiLogs/ui/grid/cells/text'
+            bodyTmpl: 'Opengento_WebapiLogger/ui/grid/cells/text'
         },
 
         getStatusColor: function (row) {
-            if (row.response_code == '200') {
+            const responseCode = parseInt(row.response_code);
+            if (responseCode >= 200 && responseCode < 300) {
                 return '#90EE90';
             }
-            if (row.response_code == '500' || row.response_code == '400') {
+            if (responseCode >= 400 && responseCode < 600) {
                 return '#ff7a7a';
             }
+
             return '#ffd97a';
-        },
+        }
     });
 });

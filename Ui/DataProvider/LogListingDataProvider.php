@@ -1,10 +1,10 @@
 <?php
-/*
- * Copyright © Ghost Unicorns snc. All rights reserved.
- * See LICENSE for license details.
+/**
+ * Copyright © OpenGento, All rights reserved.
+ * See LICENSE bundled with this library for license details.
  */
 
-namespace GhostUnicorns\WebapiLogs\Ui\DataProvider;
+namespace Opengento\WebapiLogger\Ui\DataProvider;
 
 use Magento\Framework\Api\Filter;
 use Magento\Framework\Api\FilterBuilder;

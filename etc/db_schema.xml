@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!--
-  ~ Copyright © Ghost Unicorns snc. All rights reserved.
-  ~ See LICENSE for license details.
-  -->
-
-<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+/**
+ * Copyright © OpenGento, All rights reserved.
+ * See LICENSE bundled with this library for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="webapi_logs" resource="default" engine="innodb" comment="Transporter Activity Table">
         <column xsi:type="int" name="log_id" padding="10" unsigned="true" nullable="false" identity="true"/>
         <column xsi:type="varchar" name="requestor_ip" nullable="false"/>
@@ -23,6 +23,9 @@
         </constraint>
         <index referenceId="WEBAPILOGS_ENTITY_ID_ENTITY_ID" indexType="btree">
             <column name="log_id"/>
+        </index>
+        <index referenceId="WEBAPILOGS_CREATED_AT_CREATED_AT" indexType="btree">
+            <column name="created_at"/>
         </index>
     </table>
 </schema>

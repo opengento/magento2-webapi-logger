@@ -1,58 +1,90 @@
-# Description
+# Webapi Logger for Magento 2
 
-This module allows you to analyze all the webapi rest done call toward your magento. 
+[![Latest Stable Version](https://img.shields.io/packagist/v/opengento/module-webapi-logger.svg?style=flat-square)](https://packagist.org/packages/opengento/module-webapi-logger)
+[![License: MIT](https://img.shields.io/github/license/opengento/magento2-webapi-logger.svg?style=flat-square)](./LICENSE)
+[![Packagist](https://img.shields.io/packagist/dt/opengento/module-webapi-logger.svg?style=flat-square)](https://packagist.org/packages/opengento/module-webapi-logger/stats)
+[![Packagist](https://img.shields.io/packagist/dm/opengento/module-webapi-logger.svg?style=flat-square)](https://packagist.org/packages/opengento/module-webapi-logger/stats)
+
+This module allows you to analyze all the webapi rest done call toward your Magento.
+
+- [Fork](#fork)
+- [Setup](#setup)
+    - [Composer installation](#composer-installation)
+    - [Setup the module](#setup-the-module)
+- [Features](#features)
+- [Settings](#settings)
+- [Documentation](#documentation)
+- [Support](#support)
+- [Authors](#authors)
+- [License](#license)
 
 # Fork
 
-**This forked version only logs external requests in error.**
+This is a forked version from the following repository: .
+It also contains changes from the following fork: .
 
-- [[a59ed06](https://github.com/magentix/module-webapi-logs/commit/a59ed068c3709c185a6437fcc22deb114e967d08#diff-ae26970ecab7df39eaa665075d03301cf7956854b75cebfb30caaac85570df37)] Do not log API Ajax requests (from Magento frontend, like cart and checkout)
-- [[a59ed06](https://github.com/magentix/module-webapi-logs/commit/a59ed068c3709c185a6437fcc22deb114e967d08#diff-615f9126e7b3d9fc5c7cbe97fd8e8c8ba225ca5824fc34ef5c90e5a7645dc8a1)] Do not keep requests in status 200 success
-- [[89aef44](https://github.com/magentix/module-webapi-logs/commit/89aef44220d51005f70352cc38e09ab5fbe9b324)] Display error message in grid
-- [[ecf9a89](https://github.com/magentix/module-webapi-logs/commit/ecf9a89f146589b6c16daaf58b05d944b5917d25)] Better log display when request is XML
+As the original repository does not seems to be maintained anymore, we offer an improved and optimized version here.
 
-# Install
+## Setup
 
-*composer.json*
+Magento 2 Open Source or Commerce edition is required.
 
-```json
-{
-  "repositories": {
-    "ghostunicorns/module-webapi-logs": {
-      "type": "vcs",
-      "url": "https://github.com/magentix/module-webapi-logs.git"
-    }
-  }
-}
+###  Composer installation
+
+Run the following composer command:
+
+```
+composer require opengento/module-webapi-logger
 ```
 
-`composer require ghostunicorns/module-webapi-logs`
+### Setup the module
 
-# Configure
+Run the following magento command:
 
-1. Log-in your Magento backend
+```
+bin/magento setup:upgrade
+```
 
-2. Go to `Stores > Configuration > System > Webapi Logs` and enable it
+**If you are in production mode, do not forget to recompile and redeploy the static resources.**
 
-<img src="https://github.com/ghostunicorns/module-webapi-logs/blob/main/screenshots/screen1.png" />
+## Features
 
-# Use
+### Country to store mapping
+
+Define many countries to many stores relation. This configuration will allows Magento to map stores with countries.
+
+## Settings
+
+The configuration for this module is available in `Stores > Configuration > System > Webapi Logs`.
+
+<img src="https://github.com/opengento/magento2-webapi-logger/blob/main/screenshots/screen1.png" />
+
+## Documentation
 
 Go to `Reports > Webapi Logs > Show Logs`
 
-<img src="https://github.com/ghostunicorns/module-webapi-logs/blob/main/screenshots/screen2.png" />
+<img src="https://github.com/opengento/magento2-webapi-logger/blob/main/screenshots/screen2.png" />
 
 You can select an entry to see more details about the request and the response
 
-<img src="https://github.com/ghostunicorns/module-webapi-logs/blob/main/screenshots/screen3.png" />
-
-# Attention!
+<img src="https://github.com/opengento/magento2-webapi-logger/blob/main/screenshots/screen3.png" />
 
 If you disable the Secret Mode this module will logs everything passes in the webapi calls (tokens and passwords too!), then remember to clean logs by clicking the `Delete All Logs` button:
 
-<img src="https://github.com/ghostunicorns/module-webapi-logs/blob/main/screenshots/screen4.png" />
+<img src="https://github.com/opengento/magento2-webapi-logger/blob/main/screenshots/screen4.png" />
 
-# Contribution
+## Support
 
-Yes, of course you can contribute sending a pull request to propose improvements and fixes.
+Raise a new [request](https://github.com/opengento/magento2-webapi-logger/issues) to the issue tracker.
 
+## Authors
+
+- **GhostUnicorns** - *Original Work* - [www.ghostunicorns.com](https://www.ghostunicorns.com/)
+- **Contributors** - *Contributor* - [![GitHub contributors](https://img.shields.io/github/contributors/opengento/magento2-webapi-logger.svg?style=flat-square)](https://github.com/opengento/magento2-webapi-logger/graphs/contributors)
+- **Opengento Community** - *Maintainer* - [![Twitter Follow](https://img.shields.io/twitter/follow/opengento.svg?style=social)](https://twitter.com/opengento)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) details.
+
+***That's all folks!***

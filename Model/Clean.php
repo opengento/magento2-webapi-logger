@@ -1,53 +1,39 @@
 <?php
-/*
- * Copyright © Ghost Unicorns snc. All rights reserved.
- * See LICENSE for license details.
+/**
+ * Copyright © OpenGento, All rights reserved.
+ * See LICENSE bundled with this library for license details.
  */
 
 declare(strict_types=1);
 
-namespace GhostUnicorns\WebapiLogs\Model;
+namespace Opengento\WebapiLogger\Model;
 
-use DateTime;
-use Exception;
-use GhostUnicorns\WebapiLogs\Model\ResourceModel\LogResourceModel;
+use Magento\Framework\Exception\LocalizedException;
+use Opengento\WebapiLogger\Model\ResourceModel\LogResourceModel;
 
 class Clean
 {
-    /**
-     * @var Config
-     */
-    private $config;
-
-    /**
-     * @var ResourceModel\LogResourceModel
-     */
-    private $logResourceModel;
-
     public function __construct(
-        Config $config,
-        LogResourceModel $logResourceModel
-    ) {
-        $this->config = $config;
-        $this->logResourceModel = $logResourceModel;
-    }
+        private Config $config,
+        private LogResourceModel $logResourceModel
+    ) {}
 
-    public function cleanAll()
+    public function cleanAll(): void
     {
         $this->logResourceModel->getConnection()->truncateTable($this->logResourceModel->getMainTable());
     }
 
     /**
-     * @throws Exception
+     * @throws LocalizedException
      */
-    public function execute()
+    public function clean(): void
     {
         $this->logResourceModel->getConnection()->delete(
             $this->logResourceModel->getMainTable(),
             sprintf(
                 '%s < NOW() - INTERVAL %s HOUR',
                 LogResourceModel::CREATED_AT,
-                (int)$this->config->getCleanOlderThanHours()
+                $this->config->getCleanOlderThanHours()
             )
         );
     }

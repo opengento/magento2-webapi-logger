@@ -1,37 +1,25 @@
 <?php
-/*
- * Copyright © Ghost Unicorns snc. All rights reserved.
- * See LICENSE for license details.
+/**
+ * Copyright © OpenGento, All rights reserved.
+ * See LICENSE bundled with this library for license details.
  */
 
 declare(strict_types=1);
 
-namespace GhostUnicorns\WebapiLogs\Cron;
+namespace Opengento\WebapiLogger\Cron;
 
-use Exception;
-use GhostUnicorns\WebapiLogs\Model\Clean;
+use Magento\Framework\Exception\LocalizedException;
+use Opengento\WebapiLogger\Model\Clean;
 
 class CleanCron
 {
-    /**
-     * @var Clean
-     */
-    private $clean;
+    public function __construct(private Clean $clean) {}
 
     /**
-     * @param Clean $clean
+     * @throws LocalizedException
      */
-    public function __construct(
-        Clean $clean
-    ) {
-        $this->clean = $clean;
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function execute()
+    public function execute(): void
     {
-        $this->clean->execute();
+        $this->clean->clean();
     }
 }

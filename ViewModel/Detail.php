@@ -1,59 +1,31 @@
 <?php
-/*
- * Copyright © Ghost Unicorns snc. All rights reserved.
- * See LICENSE for license details.
+/**
+ * Copyright © OpenGento, All rights reserved.
+ * See LICENSE bundled with this library for license details.
  */
 
 declare(strict_types=1);
 
-namespace GhostUnicorns\WebapiLogs\ViewModel;
+namespace Opengento\WebapiLogger\ViewModel;
 
-use GhostUnicorns\WebapiLogs\Model\LogFactory;
-use GhostUnicorns\WebapiLogs\Model\ResourceModel\LogResourceModel;
-use Magento\Framework\App\Config\ScopeConfigInterface;
+use Opengento\WebapiLogger\Model\Log;
+use Opengento\WebapiLogger\Model\LogFactory;
+use Opengento\WebapiLogger\Model\ResourceModel\LogResourceModel;
 use Magento\Framework\App\RequestInterface;
-use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
-use Magento\Store\Model\ScopeInterface;
 
 class Detail implements ArgumentInterface
 {
-    /**
-     * @var LogResourceModel
-     */
-    private $logResourceModel;
-
-    /**
-     * @var LogFactory
-     */
-    private $logFactory;
-
-    /**
-     * @var RequestInterface
-     */
-    private $request;
-
-    /**
-     * @param LogResourceModel $logResourceModel
-     * @param LogFactory $logFactory
-     * @param RequestInterface $request
-     */
     public function __construct(
-        LogResourceModel $logResourceModel,
-        LogFactory $logFactory,
-        RequestInterface $request
-    ) {
-        $this->logResourceModel = $logResourceModel;
-        $this->logFactory = $logFactory;
-        $this->request = $request;
-    }
+        private LogResourceModel $logResourceModel,
+        private LogFactory $logFactory,
+        private RequestInterface $request
+    ) {}
 
-    public function getLog()
+    public function getLog(): Log
     {
-        $logId = $this->request->getParam('log_id');
-
         $log = $this->logFactory->create();
-        $this->logResourceModel->load($log, $logId);
+        $this->logResourceModel->load($log, (int)$this->request->getParam('log_id'));
 
         return $log;
     }
