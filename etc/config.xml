@@ -20,6 +20,7 @@ password
 token
 email</secret_words>
                 <clean_older_than_hours>24</clean_older_than_hours>
+                <clean_scheduler>0 * * * *</clean_scheduler>
             </log>
         </webapi_logs>
     </default>

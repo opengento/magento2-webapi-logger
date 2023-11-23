@@ -11,7 +11,7 @@ namespace Opengento\WebapiLogger\Cron;
 use Magento\Framework\Exception\LocalizedException;
 use Opengento\WebapiLogger\Model\Clean;
 
-class CleanCron
+class Cleaner
 {
     public function __construct(private Clean $clean) {}
 

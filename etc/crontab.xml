@@ -6,9 +6,9 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
-    <group id="default">
-        <job name="webapilogs_clean" instance="Opengento\WebapiLogger\Cron\CleanCron" method="execute">
-            <schedule>0 * * * *</schedule>
+    <group id="opengento_webapi_logger">
+        <job name="opengento_webapi_logger_cleaner" instance="Opengento\WebapiLogger\Cron\Cleaner" method="execute">
+            <config_path>webapi_logs/log/clean_scheduler</config_path>
         </job>
     </group>
 </config>
