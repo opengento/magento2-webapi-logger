@@ -13,7 +13,7 @@
             </argument>
         </arguments>
     </type>
-    <virtualType name="Opengento\WebapiLogger\Model\ResourceModel\Logs\Grid\Collection\Virtual" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+    <virtualType name="Opengento\WebapiLogger\Ui\Component\DataProvider\SearchResult" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">webapi_logs</argument>
             <argument name="resourceModel" xsi:type="string">Opengento\WebapiLogger\Model\ResourceModel\LogResourceModel</argument>
@@ -22,7 +22,7 @@
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="opengento_webapi_logs_entity_data_source" xsi:type="string">Opengento\WebapiLogger\Model\ResourceModel\Logs\Grid\Collection\Virtual</item>
+                <item name="opengento_webapi_logs_entity_data_source" xsi:type="string">Opengento\WebapiLogger\Ui\Component\DataProvider\SearchResult</item>
             </argument>
         </arguments>
     </type>

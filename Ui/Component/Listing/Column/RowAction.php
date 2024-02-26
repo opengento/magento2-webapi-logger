@@ -28,14 +28,12 @@ class RowAction extends Column
     public function prepareDataSource(array $dataSource): array
     {
         foreach ($dataSource['data']['items'] ?? [] as &$item) {
-            $item[$this->getData('name')]['edit'] = [
-                'href' =>
-                    $this->urlBuilder->getUrl(
-                        'webapi_logs/reports/detail',
-                        ['log_id' => $item['log_id']]
-                    ),
-                'label' => __('View More'),
-                'hidden' => false
+            $item[$this->getData('name')] = [
+                'edit' => [
+                    'href' =>
+                        $this->urlBuilder->getUrl('webapi_logs/reports/detail', ['log_id' => $item['log_id']]),
+                    'label' => __('View More')
+                ]
             ];
         }
 

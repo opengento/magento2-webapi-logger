@@ -32,7 +32,7 @@
             <updateUrl path="mui/index/render"/>
         </settings>
         <aclResource>Opengento_WebapiLogger::reports_webapilogs</aclResource>
-        <dataProvider class="Opengento\WebapiLogger\Ui\DataProvider\LogListingDataProvider" name="opengento_webapi_logs_entity_data_source">
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="opengento_webapi_logs_entity_data_source">
             <settings>
                 <requestFieldName>log_id</requestFieldName>
                 <primaryFieldName>log_id</primaryFieldName>
