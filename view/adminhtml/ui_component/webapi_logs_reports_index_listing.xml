@@ -5,10 +5,16 @@
  */
 -->
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">webapi_logs_reports_index_listing.opengento_webapi_logs_entity_data_source</item>
+            <item name="deps" xsi:type="string">webapi_logs_reports_index_listing.opengento_webapi_logs_entity_data_source</item>
+        </item>
+    </argument>
     <settings>
         <buttons>
             <button name="delete">
-                <url path="*/*/delete"/>
+                <url path="webapi_logs/reports/delete"/>
                 <class>primary</class>
                 <label translate="true">Delete All Logs</label>
             </button>
@@ -20,6 +26,9 @@
     </settings>
     <dataSource name="opengento_webapi_logs_entity_data_source" component="Magento_Ui/js/grid/provider">
         <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">log_id</param>
+            </storageConfig>
             <updateUrl path="mui/index/render"/>
         </settings>
         <aclResource>Opengento_WebapiLogger::reports_webapilogs</aclResource>
@@ -75,7 +84,6 @@
             <settings>
                 <filter>textRange</filter>
                 <label translate="true">Log ID</label>
-                <sorting>desc</sorting>
             </settings>
         </column>
         <column name="response_code" component="Opengento_WebapiLogger/js/grid/columns/select" sortOrder="30">
@@ -97,7 +105,9 @@
         <column name="request_url" sortOrder="50">
             <settings>
                 <filter>text</filter>
-                <label translate="true">Request Method</label>
+                <label translate="true">Request URL</label>
+                <resizeEnabled>true</resizeEnabled>
+                <resizeDefaultWidth>200</resizeDefaultWidth>
             </settings>
         </column>
         <column name="requestor_ip" component="Magento_Ui/js/grid/columns/select" sortOrder="60">
@@ -118,6 +128,7 @@
         <actionsColumn name="actions" class="Opengento\WebapiLogger\Ui\Component\Listing\Column\RowAction">
             <settings>
                 <indexField>log_id</indexField>
+                <sortable>false</sortable>
             </settings>
         </actionsColumn>
     </columns>
