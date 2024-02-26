@@ -125,7 +125,7 @@
                 <label translate="true">Created At</label>
             </settings>
         </column>
-        <actionsColumn name="actions" class="Opengento\WebapiLogger\Ui\Component\Listing\Column\RowAction">
+        <actionsColumn name="actions" class="Opengento\WebapiLogger\Ui\Component\Listing\Column\Actions">
             <settings>
                 <indexField>log_id</indexField>
                 <sortable>false</sortable>

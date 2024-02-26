@@ -8,12 +8,13 @@ declare(strict_types=1);
 
 namespace Opengento\WebapiLogger\Ui\Component\Listing\Column;
 
+use Magento\Framework\Phrase;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Ui\Component\Listing\Columns\Column;
 use Magento\Framework\UrlInterface;
 
-class RowAction extends Column
+class Actions extends Column
 {
     public function __construct(
         ContextInterface $context,
@@ -27,14 +28,13 @@ class RowAction extends Column
 
     public function prepareDataSource(array $dataSource): array
     {
-        foreach ($dataSource['data']['items'] ?? [] as &$item) {
-            $item[$this->getData('name')] = [
-                'edit' => [
-                    'href' =>
-                        $this->urlBuilder->getUrl('webapi_logs/reports/detail', ['log_id' => $item['log_id']]),
-                    'label' => __('View More')
-                ]
-            ];
+        if (isset($dataSource['data']['items'])) {
+            foreach ($dataSource['data']['items'] as &$item) {
+                $item[$this->getData('name')]['edit'] = [
+                    'href' => $this->urlBuilder->getUrl('webapi_logs/reports/detail', ['log_id' => $item['log_id']]),
+                    'label' => new Phrase('View')
+                ];
+            }
         }
 
         return $dataSource;
