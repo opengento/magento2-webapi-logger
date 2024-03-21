@@ -72,11 +72,7 @@ class LogHandle
             $this->lastLog->setResponseBody($responseBody);
             $this->lastLog->setResponseCode($responseCode);
             $this->lastLog->setResponseDatetime($responseDateTime);
-            if ($responseCode === '200') {
-                $this->logResourceModel->delete($this->lastLog);
-            } else {
-                $this->logResourceModel->save($this->lastLog);
-            }
+            $this->logResourceModel->save($this->lastLog);
         } catch (Exception $exception) {
             $this->logger->error(__('Cant complete webapi log save because of error: %1', $exception->getMessage()));
         }
