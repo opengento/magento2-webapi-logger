@@ -12,12 +12,12 @@ use Magento\Framework\App\RequestInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Opengento\WebapiLogger\Model\Log;
 use Opengento\WebapiLogger\Model\LogFactory;
-use Opengento\WebapiLogger\Model\ResourceModel\LogResourceModel;
+use Opengento\WebapiLogger\Model\ResourceModel\Log as LogResource;
 
 class Detail implements ArgumentInterface
 {
     public function __construct(
-        private LogResourceModel $logResourceModel,
+        private LogResource $logResourceModel,
         private LogFactory $logFactory,
         private RequestInterface $request
     ) {}

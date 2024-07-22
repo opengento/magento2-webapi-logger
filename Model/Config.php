@@ -13,6 +13,7 @@ use Magento\Store\Model\ScopeInterface;
 use Opengento\WebapiLogger\Model\Config\SaveMode;
 
 use function array_map;
+use function explode;
 
 class Config
 {
@@ -33,7 +34,7 @@ class Config
     {
         return array_map(
             static fn (string $saveMode): SaveMode => SaveMode::from($saveMode),
-            $this->scopeConfig->getValue(self::WEBAPI_LOGS_SAVE_MODES)
+            explode(',', (string)$this->scopeConfig->getValue(self::WEBAPI_LOGS_SAVE_MODES))
         );
     }
 

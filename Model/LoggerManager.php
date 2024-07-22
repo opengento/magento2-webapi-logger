@@ -10,7 +10,7 @@ namespace Opengento\WebapiLogger\Model;
 
 use Magento\Framework\Exception\AlreadyExistsException;
 use Opengento\WebapiLogger\Model\Config\SaveMode;
-use Opengento\WebapiLogger\Model\ResourceModel\LogResourceModel;
+use Opengento\WebapiLogger\Model\ResourceModel\Log as LogResource;
 use Psr\Log\LoggerInterface;
 
 use function in_array;
@@ -18,7 +18,7 @@ use function in_array;
 class LoggerManager
 {
     public function __construct(
-        private LogResourceModel $logResourceModel,
+        private LogResource $logResourceModel,
         private Config $config,
         private LoggerInterface $logger
     ) {}

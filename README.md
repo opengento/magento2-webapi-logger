@@ -49,10 +49,6 @@ bin/magento setup:upgrade
 
 ## Features
 
-### Country to store mapping
-
-Define many countries to many stores relation. This configuration will allows Magento to map stores with countries.
-
 ## Settings
 
 The configuration for this module is available in `Stores > Configuration > System > Webapi Logs`.
@@ -72,6 +68,9 @@ You can select an entry to see more details about the request and the response
 If you disable the Secret Mode this module will logs everything passes in the webapi calls (tokens and passwords too!), then remember to clean logs by clicking the `Delete All Logs` button:
 
 <img src="https://github.com/opengento/magento2-webapi-logger/blob/main/screenshots/screen4.png" />
+
+It is now possible to log the webapi request and response to filesystem or any handler that follow the PSR Log.  
+You can register your handlers to `Opengento\WebapiLogger\Logger`. The module use the `debug` level to log the request and response.
 
 ## Support
 

@@ -6,13 +6,13 @@
 
 declare(strict_types=1);
 
-namespace Opengento\WebapiLogger\Model\ResourceModel\Entity;
+namespace Opengento\WebapiLogger\Model\ResourceModel\Log;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Opengento\WebapiLogger\Model\Log;
-use Opengento\WebapiLogger\Model\ResourceModel\LogResourceModel;
+use Opengento\WebapiLogger\Model\ResourceModel\Log as LogResource;
 
-class LogCollection extends AbstractCollection
+class Collection extends AbstractCollection
 {
     protected $_idFieldName = 'log_id';
     protected $_eventPrefix = 'webapi_log_collection';
@@ -20,7 +20,7 @@ class LogCollection extends AbstractCollection
 
     protected function _construct(): void
     {
-        $this->_init(Log::class, LogResourceModel::class);
+        $this->_init(Log::class, LogResource::class);
     }
 
     public function responseCodeToOptionArray(): array

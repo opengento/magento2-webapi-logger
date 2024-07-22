@@ -10,7 +10,7 @@ namespace Opengento\WebapiLogger\Model\ResourceModel;
 
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
-class LogResourceModel extends AbstractDb
+class Log extends AbstractDb
 {
     public const CREATED_AT = 'created_at';
 

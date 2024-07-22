@@ -9,20 +9,20 @@ declare(strict_types=1);
 namespace Opengento\WebapiLogger\Model\Config\Source;
 
 use Magento\Framework\Data\OptionSourceInterface;
-use Opengento\WebapiLogger\Model\ResourceModel\Entity\LogCollection;
-use Opengento\WebapiLogger\Model\ResourceModel\Entity\LogCollectionFactory;
+use Opengento\WebapiLogger\Model\ResourceModel\Log\CollectionFactory;
+use Opengento\WebapiLogger\Model\ResourceModel\Log\Collection;
 
 class Code implements OptionSourceInterface
 {
-    public function __construct(private LogCollectionFactory $logCollectionFactory) {}
+    public function __construct(private CollectionFactory $collectionFactory) {}
 
     public function toOptionArray(): array
     {
-        /** @var LogCollection $logsCollection */
-        $logsCollection = $this->logCollectionFactory->create();
-        $logsCollection->addFieldToSelect('response_code');
-        $logsCollection->distinct(true);
+        /** @var Collection $collection */
+        $collection = $this->collectionFactory->create();
+        $collection->addFieldToSelect('response_code');
+        $collection->distinct(true);
 
-        return $logsCollection->responseCodeToOptionArray();
+        return $collection->responseCodeToOptionArray();
     }
 }

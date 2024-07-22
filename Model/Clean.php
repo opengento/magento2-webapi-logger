@@ -9,15 +9,18 @@ declare(strict_types=1);
 namespace Opengento\WebapiLogger\Model;
 
 use Magento\Framework\Exception\LocalizedException;
-use Opengento\WebapiLogger\Model\ResourceModel\LogResourceModel;
+use Opengento\WebapiLogger\Model\ResourceModel\Log as LogResource;
 
 class Clean
 {
     public function __construct(
         private Config $config,
-        private LogResourceModel $logResourceModel
+        private LogResource $logResourceModel
     ) {}
 
+    /**
+     * @throws LocalizedException
+     */
     public function cleanAll(): void
     {
         $this->logResourceModel->getConnection()->truncateTable($this->logResourceModel->getMainTable());
@@ -32,7 +35,7 @@ class Clean
             $this->logResourceModel->getMainTable(),
             sprintf(
                 '%s < NOW() - INTERVAL %s HOUR',
-                LogResourceModel::CREATED_AT,
+                LogResource::CREATED_AT,
                 $this->config->getCleanOlderThanHours()
             )
         );
