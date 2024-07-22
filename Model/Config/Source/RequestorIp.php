@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Opengento\WebapiLogger\Model\Config\Source;
 
 use Magento\Framework\Data\OptionSourceInterface;
-use Opengento\WebapiLogger\Model\ResourceModel\Log\CollectionFactory;
 use Opengento\WebapiLogger\Model\ResourceModel\Log\Collection;
+use Opengento\WebapiLogger\Model\ResourceModel\Log\CollectionFactory;
 
 class RequestorIp implements OptionSourceInterface
 {
