@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Opengento\WebapiLogger\Model;
 
-use Opengento\WebapiLogger\Model\ResourceModel\LogResourceModel;
 use Magento\Framework\Model\AbstractModel;
+use Opengento\WebapiLogger\Model\ResourceModel\LogResourceModel;
 
 class Log extends AbstractModel
 {

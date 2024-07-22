@@ -11,6 +11,7 @@
         <webapi_logs>
             <log>
                 <enabled>1</enabled>
+                <save_modes>database</save_modes>
                 <secret_mode>1</secret_mode>
                 <secret_words>Cookie
 User-Agent

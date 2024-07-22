@@ -26,4 +26,22 @@
             </argument>
         </arguments>
     </type>
+    <virtualType name="Opengento\WebapiLogger\Logger" type="Monolog\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">Opengento_WebapiLogger::access</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="access" xsi:type="object">Opengento\WebapiLogger\Logger\Access</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Opengento\WebapiLogger\Logger\Access" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/webapi/access.log</argument>
+        </arguments>
+    </virtualType>
+    <type name="Opengento\WebapiLogger\Model\LoggerManager">
+        <arguments>
+            <argument name="logger" xsi:type="object">Opengento\WebapiLogger\Logger</argument>
+        </arguments>
+    </type>
 </config>

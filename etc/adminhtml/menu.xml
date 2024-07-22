@@ -13,7 +13,7 @@
              module="Opengento_WebapiLogger"
              sortOrder="5"
              parent="Magento_Reports::report"
-             resource="Opengento_WebapiLogger::reports" />
+             resource="Opengento_WebapiLogger::reports"/>
         <add id="Opengento_WebapiLogger::reports_activity"
              title="Show Logs"
              translate="title"
@@ -21,7 +21,6 @@
              sortOrder="10"
              parent="Opengento_WebapiLogger::reports"
              action="webapi_logs/reports/index"
-             resource="Opengento_WebapiLogger::reports_webapilogs" />
+             resource="Opengento_WebapiLogger::reports_webapilogs"/>
     </menu>
 </config>
-

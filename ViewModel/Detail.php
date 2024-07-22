@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Opengento\WebapiLogger\ViewModel;
 
+use Magento\Framework\App\RequestInterface;
+use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Opengento\WebapiLogger\Model\Log;
 use Opengento\WebapiLogger\Model\LogFactory;
 use Opengento\WebapiLogger\Model\ResourceModel\LogResourceModel;
-use Magento\Framework\App\RequestInterface;
-use Magento\Framework\View\Element\Block\ArgumentInterface;
 
 class Detail implements ArgumentInterface
 {

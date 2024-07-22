@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Opengento\WebapiLogger\Plugin;
 
-use Opengento\WebapiLogger\Model\Config;
-use Opengento\WebapiLogger\Model\LogHandle;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Magento\Webapi\Controller\Rest;
+use Opengento\WebapiLogger\Model\Config;
+use Opengento\WebapiLogger\Model\LogHandle;
 
 class FrontControllerDispatch
 {
@@ -25,20 +25,13 @@ class FrontControllerDispatch
     public function beforeDispatch(Rest $subject, RequestInterface $request): array
     {
         if ($this->config->isEnabled() && !$request->isXmlHttpRequest()) {
-            $requestMethod = $request->getMethod();
-            $requestorIp = $request->getClientIp();
-            $requestPath = $request->getUriString();
-            $requestHeaders = $request->getHeaders()->toString();
-            $requestBody = $request->getContent();
-            $requestDateTime = $this->date->gmtDate();
-
             $this->logHandle->before(
-                $requestMethod,
-                $requestorIp,
-                $requestPath,
-                $requestHeaders,
-                $requestBody,
-                $requestDateTime
+                $request->getMethod(),
+                $request->getClientIp(),
+                $request->getUriString(),
+                $request->getHeaders()->toString(),
+                $request->getContent(),
+                $this->date->gmtDate()
             );
         }
 
@@ -65,8 +58,7 @@ class FrontControllerDispatch
                 $responseBody = trim($responseBody, '"');
             }
 
-            $responseDateTime = $this->date->gmtDate();
-            $this->logHandle->after($responseCode, $responseBody, $responseDateTime);
+            $this->logHandle->after($responseCode, $responseBody, $this->date->gmtDate());
         }
 
         return $result;

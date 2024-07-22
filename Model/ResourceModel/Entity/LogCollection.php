@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Opengento\WebapiLogger\Model\ResourceModel\Entity;
 
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Opengento\WebapiLogger\Model\Log;
 use Opengento\WebapiLogger\Model\ResourceModel\LogResourceModel;
-use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 class LogCollection extends AbstractCollection
 {

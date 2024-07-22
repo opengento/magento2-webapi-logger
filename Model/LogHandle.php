@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Opengento\WebapiLogger\Model;
 
 use Exception;
-use Opengento\WebapiLogger\Model\ResourceModel\LogResourceModel;
 use Psr\Log\LoggerInterface;
 
 class LogHandle
@@ -18,9 +17,9 @@ class LogHandle
 
     public function __construct(
         private LogFactory $logFactory,
-        private LogResourceModel $logResourceModel,
         private SecretParser $secretParser,
         private Config $config,
+        private LoggerManager $loggerManager,
         private LoggerInterface $logger
     ) {}
 
@@ -31,7 +30,7 @@ class LogHandle
         string $requestHeaders,
         string $requestBody,
         string $requestDateTime
-    ) {
+    ): void {
         try {
             if ($this->config->isSecretMode()) {
                 $requestorIp = $this->secretParser->parseIp();
@@ -41,6 +40,7 @@ class LogHandle
 
             $log = $this->logFactory->create();
             $log->setData([
+                'is_request' => true,
                 'request_method' => $requestMethod,
                 'requestor_ip' => $requestorIp,
                 'request_url' => $requestPath,
@@ -48,10 +48,10 @@ class LogHandle
                 'request_body' => $requestBody,
                 'request_datetime' => $requestDateTime
             ]);
-            $this->logResourceModel->save($log);
+            $this->loggerManager->log($log);
             $this->lastLog = $log;
         } catch (Exception $exception) {
-            $this->logger->error(__('Cant complete webapi log save because of error: %1', $exception->getMessage()));
+            $this->logger->error('Cant complete webapi log save because of error: ' . $exception->getMessage());
         }
     }
 
@@ -59,22 +59,24 @@ class LogHandle
         string $responseCode,
         string $responseBody,
         string $responseDateTime
-    ) {
-        if (!$this->lastLog) {
-            return;
-        }
+    ): void {
+        if ($this->lastLog) {
+            try {
+                if ($this->config->isSecretMode()) {
+                    $responseBody = $this->secretParser->parseBody($responseBody);
+                }
 
-        try {
-            if ($this->config->isSecretMode()) {
-                $responseBody = $this->secretParser->parseBody($responseBody);
+                $this->lastLog->unsetData('is_request');
+                $this->lastLog->addData([
+                    'is_response' => true,
+                    'response_body' => $responseBody,
+                    'response_code' => $responseCode,
+                    'response_datetime' => $responseDateTime
+                ]);
+                $this->loggerManager->log($log);
+            } catch (Exception $exception) {
+                $this->logger->error('Cant complete webapi log save because of error: ' . $exception->getMessage());
             }
-
-            $this->lastLog->setResponseBody($responseBody);
-            $this->lastLog->setResponseCode($responseCode);
-            $this->lastLog->setResponseDatetime($responseDateTime);
-            $this->logResourceModel->save($this->lastLog);
-        } catch (Exception $exception) {
-            $this->logger->error(__('Cant complete webapi log save because of error: %1', $exception->getMessage()));
         }
     }
 }

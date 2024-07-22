@@ -9,11 +9,11 @@ declare(strict_types=1);
 namespace Opengento\WebapiLogger\Controller\Adminhtml\Reports;
 
 use Exception;
-use Magento\Framework\Controller\Result\Redirect;
-use Opengento\WebapiLogger\Model\Clean;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpGetActionInterface;
+use Magento\Framework\Controller\Result\Redirect;
+use Opengento\WebapiLogger\Model\Clean;
 
 class Delete extends Action implements HttpGetActionInterface
 {
