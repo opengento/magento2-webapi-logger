@@ -73,7 +73,7 @@ class LogHandle
                     'response_code' => $responseCode,
                     'response_datetime' => $responseDateTime
                 ]);
-                $this->loggerManager->log($log);
+                $this->loggerManager->log($this->lastLog);
             } catch (Exception $exception) {
                 $this->logger->error('Cant complete webapi log save because of error: ' . $exception->getMessage());
             }
