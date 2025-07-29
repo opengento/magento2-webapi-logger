@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Opengento\WebapiLogger\Plugin;
 
+use Magento\Framework\App\FrontControllerInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Magento\Webapi\Controller\Rest;
@@ -22,7 +23,7 @@ class FrontControllerDispatch
         private LogHandle $logHandle
     ) {}
 
-    public function beforeDispatch(Rest $subject, RequestInterface $request): array
+    public function beforeDispatch(FrontControllerInterface $subject, RequestInterface $request): array
     {
         if ($this->config->isEnabled() && !$request->isXmlHttpRequest()) {
             $this->logHandle->before(
@@ -38,7 +39,7 @@ class FrontControllerDispatch
         return [$request];
     }
 
-    public function afterDispatch(Rest $subject, $result, RequestInterface $request): mixed
+    public function afterDispatch(FrontControllerInterface $subject, $result, RequestInterface $request): mixed
     {
         if ($this->config->isEnabled() && !$request->isXmlHttpRequest()) {
             $exceptions = $result->getException();
