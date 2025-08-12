@@ -42,7 +42,7 @@ class FrontControllerDispatch
     public function afterDispatch(FrontControllerInterface $subject, $result, RequestInterface $request): mixed
     {
         if ($this->config->isEnabled() && !$request->isXmlHttpRequest()) {
-            $exceptions = $result instanceof WebapiResponse::class ? $result->getException() : '';
+            $exceptions = $result instanceof WebapiResponse ? $result->getException() : '';
             if ($exceptions !== []) {
                 $responseCode = '';
                 $responseBody = '';
