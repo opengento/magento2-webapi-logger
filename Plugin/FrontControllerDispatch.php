@@ -12,7 +12,6 @@ use Magento\Framework\App\FrontControllerInterface;
 use Magento\Framework\Webapi\Response as WebapiResponse;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Stdlib\DateTime\DateTime;
-use Magento\Webapi\Controller\Rest;
 use Opengento\WebapiLogger\Model\Config;
 use Opengento\WebapiLogger\Model\LogHandle;
 
