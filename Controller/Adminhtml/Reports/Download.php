@@ -15,6 +15,7 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\Response\Http\FileFactory;
 use Magento\Framework\App\ResponseInterface;
 use Opengento\WebapiLogger\Model\LogFactory;
+use Opengento\WebapiLogger\Model\RequestBodyStorage;
 
 class Download extends Action implements HttpGetActionInterface
 {
@@ -23,7 +24,8 @@ class Download extends Action implements HttpGetActionInterface
     public function __construct(
         Context $context,
         private FileFactory $fileFactory,
-        private LogFactory $logFactory
+        private LogFactory $logFactory,
+        private RequestBodyStorage $requestBodyStorage
     ) {
         parent::__construct($context);
     }
@@ -41,7 +43,9 @@ class Download extends Action implements HttpGetActionInterface
 
         return $this->fileFactory->create(
             sprintf('webapi-request-body-%d.json', $logId),
-            $this->getPrettyJson((string) $log->getData('request_body')),
+            $this->getPrettyJson(
+                $this->requestBodyStorage->resolve((string)$log->getData('request_body'))
+            ),
             DirectoryList::VAR_DIR,
             'application/json'
         );

@@ -13,6 +13,8 @@
         <column xsi:type="text" name="request_headers" nullable="false"/>
         <column xsi:type="varchar" name="request_method" nullable="false"/>
         <column xsi:type="text" name="request_body" nullable="false"/>
+        <column xsi:type="int" name="request_size" unsigned="true" nullable="false" default="0"/>
+        <column xsi:type="varchar" name="request_stored" nullable="false" default="db"/>
         <column xsi:type="varchar" name="response_code" nullable="false"/>
         <column xsi:type="text" name="response_body" nullable="false"/>
         <column xsi:type="timestamp" name="request_datetime" nullable="true" comment="Request datetime"/>

@@ -15,7 +15,8 @@ class Clean
 {
     public function __construct(
         private Config $config,
-        private LogResource $logResourceModel
+        private LogResource $logResourceModel,
+        private RequestBodyStorage $requestBodyStorage
     ) {}
 
     /**
@@ -23,7 +24,17 @@ class Clean
      */
     public function cleanAll(): void
     {
-        $this->logResourceModel->getConnection()->truncateTable($this->logResourceModel->getMainTable());
+        $connection = $this->logResourceModel->getConnection();
+        $tableName = $this->logResourceModel->getMainTable();
+
+        $statement = $connection->query(
+            $connection->select()->from($tableName, ['request_body'])
+        );
+        while (($row = $statement->fetch()) !== false) {
+            $this->requestBodyStorage->delete((string)($row['request_body'] ?? ''));
+        }
+
+        $connection->truncateTable($tableName);
     }
 
     /**

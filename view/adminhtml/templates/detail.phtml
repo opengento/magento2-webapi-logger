@@ -12,6 +12,10 @@ declare(strict_types=1);
 
 $viewModel = $block->getData('viewModel');
 $log = $viewModel->getLog();
+$requestBody = $viewModel->getRequestBody();
+$requestBodySize = strlen($requestBody);
+$isRequestBodyTooLarge = strlen($requestBody) > 2 * 1024 * 1024;
+$requestBodyDownloadUrl = $block->getUrl('webapi_logs/reports/download', ['log_id' => $log->getData('log_id')]);
 ?>
 <h1><?= $escaper->escapeHtml(__('Log id: %1', $log->getData('log_id'))) ?></h1>
 <br/>
@@ -25,18 +29,34 @@ $log = $viewModel->getLog();
 <p><b><?= $escaper->escapeHtml(__('request_method:')) ?></b></p>
 <p><?= $escaper->escapeHtml($log->getData('request_method')) ?></p>
 <br/>
-<?php if (preg_match('/^<\?xml/', $log->getData('request_body'))): ?>
+<p><b><?= $escaper->escapeHtml(__('request_size:')) ?></b></p>
+<p><?= $escaper->escapeHtml((string)number_format($requestBodySize)) ?> <?= $escaper->escapeHtml(__('bytes')) ?></p>
+<br/>
+<?php if ($isRequestBodyTooLarge): ?>
+    <p>
+        <b><?= $escaper->escapeHtml(__('request_body:')) ?></b>
+        <button
+            class="js_beauty_json"
+            disabled="disabled"
+            title="<?= $escaper->escapeHtmlAttr((string)__('Request too large to view. Download instead.')) ?>"
+        ><?= $escaper->escapeHtml(__('Prettify JSON')) ?></button>
+        <a class="action-default" href="<?= $escaper->escapeUrl($requestBodyDownloadUrl) ?>">
+            <?= $escaper->escapeHtml(__('Download')) ?>
+        </a>
+    </p>
+    <p><?= $escaper->escapeHtml(__('Request too large to view, download instead.')) ?></p>
+<?php elseif (preg_match('/^<\?xml/', $requestBody)): ?>
     <p><b><?= $escaper->escapeHtml(__('request_body:')) ?></b></p>
-    <pre style="border:1px solid #CCC;height:300px;overflow-y:auto;padding:10px;font-size:12px"><?= $escaper->escapeHtml($log->getData('request_body')) ?></pre>
+    <pre style="border:1px solid #CCC;height:300px;overflow-y:auto;padding:10px;font-size:12px"><?= $escaper->escapeHtml($requestBody) ?></pre>
 <?php else: ?>
     <p>
         <b><?= $escaper->escapeHtml(__('request_body:')) ?></b>
         <button class="js_beauty_json"><?= $escaper->escapeHtml(__('Prettify JSON')) ?></button>
-        <a class="action-default" href="<?= $escaper->escapeUrl($block->getUrl('webapi_logs/reports/download', ['log_id' => $log->getData('log_id')])) ?>">
+        <a class="action-default" href="<?= $escaper->escapeUrl($requestBodyDownloadUrl) ?>">
             <?= $escaper->escapeHtml(__('Download')) ?>
         </a>
     </p>
-    <p><?= $escaper->escapeHtml($log->getData('request_body')) ?></p>
+    <p><?= $escaper->escapeHtml($requestBody) ?></p>
 <?php endif; ?>
 <br/>
 <p><b><?= $escaper->escapeHtml(__('request_headers:')) ?></b></p>

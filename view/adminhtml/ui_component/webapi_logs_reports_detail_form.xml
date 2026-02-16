@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © OpenGento, All rights reserved.
+ * See LICENSE bundled with this library for license details.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">webapi_logs_reports_detail_form.webapi_logs_reports_detail_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Webapi REST API Log Detail</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="back" class="Opengento\WebapiLogger\Block\Adminhtml\Reports\Ui\BackButton"/>
+        </buttons>
+        <namespace>webapi_logs_reports_detail_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>webapi_logs_reports_detail_form.webapi_logs_reports_detail_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="webapi_logs_reports_detail_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <dataProvider class="Opengento\WebapiLogger\Ui\DataProvider\Log\DetailDataProvider" name="webapi_logs_reports_detail_form_data_source">
+            <settings>
+                <requestFieldName>log_id</requestFieldName>
+                <primaryFieldName>log_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <htmlContent name="log_detail_html" sortOrder="10">
+        <argument name="data" xsi:type="array">
+            <item name="wrapper" xsi:type="array">
+                <item name="canShow" xsi:type="boolean">true</item>
+                <item name="componentType" xsi:type="string">fieldset</item>
+                <item name="label" xsi:type="string"/>
+            </item>
+        </argument>
+        <settings>
+            <wrapper>
+                <canShow>true</canShow>
+                <componentType>fieldset</componentType>
+            </wrapper>
+        </settings>
+        <block class="Magento\Framework\View\Element\Template" name="webapi_log_detail_html" template="Opengento_WebapiLogger::detail.phtml">
+            <arguments>
+                <argument name="viewModel" xsi:type="object">Opengento\WebapiLogger\ViewModel\Detail</argument>
+            </arguments>
+        </block>
+    </htmlContent>
+</form>
